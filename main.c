@@ -1,54 +1,49 @@
 #include <stdio.h>
 #include <math.h>
 
-#define NOLL -9999999
-#define INFAN -9999998
-
-int BinarySolver(double, double, double, double*, double*);
-int LinearSolver(double, double, double*);
-
+/*Using Functions*/
+int BinomialSolver(double a, double b, double c, double* x1, double* x2);
+int LinearSolver(double b, double c, double* x);
 int main()
 {
+/*Program Start*/
     printf("SquareSolver2008\n2026 (c) Nyasha\n");
     printf("Insert a b c:\n");
-
+/*Input*/
     double a = 0, b = 0, c = 0;
-    scanf("%lf %lf %lf", &a, &b, &c);
+    if (scanf("%lf %lf %lf", &a, &b, &c) < 3){
+        printf("Argument count error\n");
+        return 0;
+    }
+/*Choose*/
+    int Flag = 0;
+    double x1 = 0, x2 = 0;
 
     if (a == 0){
-        double x = 0;
-        int Flag = LinearSolver(b, c, &x);
-        switch (Flag){
-            case INFAN:
-                printf("InfinitySolves\n");
-                break;
-            case NOLL:
-                printf("NoSolves\n");
-                break;
-            default:
-                printf("x = %lf\n", x);
-                break;
-        }
+        Flag = LinearSolver(b, c, &x1);
     }
     else {
-        double x1 = 0, x2 = 0;
-        int Flag = BinarySolver(a, b, c, &x1, &x2);
-        switch(Flag){
-            case 0:
-                printf("NoSolves\n");
-                break;
-            case 1:
-                printf("x = %lf\n", x1);
-                break;
-            case 2:
-                printf("x1 = %lf\tx2 = %lf\n", x1, x2);
-                break;
-        }
+        Flag = BinomialSolver(a, b, c, &x1, &x2);
+    }
+/*Printing*/
+    switch (Flag){
+        case EOF:
+            printf("InfinitySolves\n");
+            break;
+        case 0:
+            printf("NoSolves\n");
+            break;
+        case 1:
+            printf("x = %lf\n", x1);
+            break;
+        case 2:
+            printf("x1 = %lf\tx2 = %lf\n", x1, x2);
+            break;
     }
     return 0;
 }
-
-int BinarySolver (double a, double b, double c, double* x1, double* x2)
+/*Solves Binomials Arg: a, b, c Solves: x1, x2 Out: 0 NoSolves, 1 OneSolve, 2 TwoSolves, EOF InfSolves*/
+int BinomialSolver (double a, double b, double c, double* x1, double* x2)
 {
     double disk = b * b - 4 * a * c;
 
@@ -68,19 +63,15 @@ int BinarySolver (double a, double b, double c, double* x1, double* x2)
         return 2;
     }
 }
-
-int LinearSolver(double b, double c, double* x)
+/*Solves Linears Arg: b, c Solve: x Out: 0 NoSolves, 1 OneSolve*/
+int LinearSolver(double a, double b, double* x)
 {
-    if (b == 0){
+    if (a == 0){
         *x = -1;
-        return (c == 0)? INFAN : NOLL;
-    }
-    else if (c == 0){
-        *x = 0;
-        return 0;
+        return (b == 0)? EOF : 0;
     }
     else {
-        *x = -c / b;
-        return 0;
+        *x = -b / a;
+        return 1;
     }
 }
