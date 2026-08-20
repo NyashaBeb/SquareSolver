@@ -86,7 +86,7 @@ void PrintSolve(FILE* stream, int F, root* x1, root* x2)
     return;
 }
 /*Choose Solve Style*/
-void ChooseSolve(double a, double b, double c, int F, root* x1, root* x2)
+int ChooseSolve(double a, double b, double c, int F, root* x1, root* x2)
 {
     assert (x1 != NULL);
     assert (x2 != NULL);
@@ -101,5 +101,6 @@ void ChooseSolve(double a, double b, double c, int F, root* x1, root* x2)
     else {
         F = BinomialSolve(a, b, c, x1, x2);
     }
+    return F;
 }
 #endif

@@ -24,14 +24,14 @@ int main()
     int F = 0;
     root x1 = {0}, x2 = {0};
 
-    ChooseSolve(a, b, c, F, &x1, &x2);
+    F = ChooseSolve(a, b, c, F, &x1, &x2);
     /*Printing*/
     PrintSolve(xout, F, &x1, &x2);
     } /*Loop end*/
 /*End Program*/
     fclose(xin);
     fclose (xout);
-    printf("Files were edited succesfully\n");d
+    printf("Files were edited succesfully\n");
     return 0;
 }
 
