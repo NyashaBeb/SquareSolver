@@ -76,7 +76,7 @@ void PrintSolver(FILE* stream, int Flag, solve* x1, solve* x2)
             fprintf(stream, "x1 = %lf\tx2 = %lf\n", x1->RE, x2->RE);
             break;
         case IMSOL:
-            fprintf(stream, "x1 = %lf + %lf\tx2 = %lf + %lf\n", x1->RE, x1->IM, x2->RE, x2->IM);
+            fprintf(stream, "x1 = %lf + %lfi\tx2 = %lf + %lfi\n", x1->RE, x1->IM, x2->RE, x2->IM);
             break;
     }
     return;

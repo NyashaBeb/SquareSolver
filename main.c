@@ -7,7 +7,6 @@ void scanftest(int scanval);
 int main()
 {
 /*Program Start*/
-
     printf("SquareSolver2008\n2026 (c) Nyasha\n");
 /*  printf("Insert a b c: (-100000/100000)\n");*/
 /*File Open*/
