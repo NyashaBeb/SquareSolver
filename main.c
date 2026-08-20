@@ -1,21 +1,8 @@
-#include <stdio.h>
-#include <math.h>
-#include <assert.h>
-#include <stdlib.h>
+#include "equation.c"
 
 const int MAXLINE = 10000;
-
-enum flags {
-    INFSOL = 999999,
-    NOSOL = 999990,
-    ONESOL = 999991,
-    TWOSOL = 999992
-};
-
 /*Using Functions*/
-int BinomialSolver(double a, double b, double c, double* x1, double* x2);
-int LinearSolver(double a, double b, double* x);
-void PrintSolver(FILE* stream, int Flag, double x1, double x2);
+void scanftest(int scanval);
 
 int main()
 {
@@ -33,22 +20,10 @@ int main()
     while (fgets(equality, MAXLINE, xin) != NULL)
     { /*Loop Start*/
     int test = sscanf(equality, "%lf %lf %lf", &a, &b, &c);
-
-    if (test == EOF){
-        printf("End Of File\n");
-        exit(EXIT_FAILURE);
-    }
-    else if (test == 0) {
-        printf("Argument failure\n");
-        exit(EXIT_FAILURE);
-    }
-    else if (test != 3) {
-        printf("Argument count error\n");
-        exit(EXIT_FAILURE);
-    }
+    scanftest(test);
     /*Choose*/
     int Flag = 0;
-    double x1 = 0, x2 = 0;
+    solve x1 = {0}, x2 = {0};
 
     if (a == 0) {
         Flag = LinearSolver(b, c, &x1);
@@ -57,7 +32,7 @@ int main()
         Flag = BinomialSolver(a, b, c, &x1, &x2);
     }
     /*Printing*/
-    PrintSolver(xout, Flag, x1, x2);
+    PrintSolver(xout, Flag, &x1, &x2);
     } /*Loop end*/
 /*End Program*/
     fclose(xin);
@@ -65,60 +40,19 @@ int main()
     printf("Files were edited succesfully\n");
     return 0;
 }
-/*Solves Binomials Arg: a, b, c Solves: x1, x2*/
-int BinomialSolver (double a, double b, double c, double* x1, double* x2)
-{
-    assert (x1 != NULL);
-    assert (x2 != NULL);
 
-    if (a == 0) {
-        printf("No Binomial");
+void scanftest(int scanval)
+{
+    if (scanval == EOF){
+        printf("End Of File\n");
         exit(EXIT_FAILURE);
     }
-
-    double disk = b * b - 4 * a * c;
-
-    if (disk < 0) {
-        return NOSOL;
+    else if (scanval == 0) {
+        printf("Argument failure\n");
+        exit(EXIT_FAILURE);
     }
-    else if (disk == 0) {
-        *x1 = -b / (2 * a);
-        return ONESOL;
+    else if (scanval != 3) {
+        printf("Argument count error\n");
+        exit(EXIT_FAILURE);
     }
-    else {
-        *x1 = (-b + sqrt(disk)) / (2 * a);
-        *x2 = (-b - sqrt(disk)) / (2 * a);
-        return TWOSOL;
-    }
-}
-/*Solves Linears Arg: a, b Solve: x*/
-int LinearSolver(double a, double b, double* x)
-{
-    assert (x != NULL);
-    if (a == 0) {
-        return (b == 0)? INFSOL : NOSOL;
-    }
-    else {
-        *x = -b / a;
-        return ONESOL;
-    }
-}
-/*Print Solver's Results*/
-void PrintSolver(FILE* stream, int Flag, double x1, double x2)
-{
-    switch (Flag) {
-        case INFSOL:
-            fprintf(stream, "InfinitySolves\n");
-            break;
-        case NOSOL:
-            fprintf(stream, "NoSolves\n");
-            break;
-        case ONESOL:
-            fprintf(stream, "x = %lf\n", x1);
-            break;
-        case TWOSOL:
-            fprintf(stream, "x1 = %lf\tx2 = %lf\n", x1, x2);
-            break;
-    }
-    return;
 }
