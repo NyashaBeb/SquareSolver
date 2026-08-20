@@ -20,7 +20,12 @@ int main()
     printf("Insert a b c:\n");
 /*Input*/
     double a = 0, b = 0, c = 0;
-    if (scanf("%lf %lf %lf", &a, &b, &c) < 3){
+    int test = scanf("%lf %lf %lf", &a, &b, &c);
+    if (test == EOF){
+        printf("End Of File\n");
+        return 0;
+    }
+    else if (test < 3) {
         printf("Argument count error\n");
         return 0;
     }
@@ -28,14 +33,14 @@ int main()
     int Flag = 0;
     double x1 = 0, x2 = 0;
 
-    if (a == 0){
+    if (a == 0) {
         Flag = LinearSolver(b, c, &x1);
     }
     else {
         Flag = BinomialSolver(a, b, c, &x1, &x2);
     }
 /*Printing*/
-    switch (Flag){
+    switch (Flag) {
         case INFSOL:
             printf("InfinitySolves\n");
             break;
@@ -54,6 +59,8 @@ int main()
 /*Solves Binomials Arg: a, b, c Solves: x1, x2*/
 int BinomialSolver (double a, double b, double c, double* x1, double* x2)
 {
+    assert (x1 != NULL);
+    assert (x2 != NULL);
     double disk = b * b - 4 * a * c;
 
     if (disk < 0) {
@@ -72,7 +79,8 @@ int BinomialSolver (double a, double b, double c, double* x1, double* x2)
 /*Solves Linears Arg: a, b Solve: x*/
 int LinearSolver(double a, double b, double* x)
 {
-    if (a == 0) {
+    assert (x == NULL);
+    if (a != 0) {
         return (b == 0)? INFSOL : NOSOL;
     }
     else {
