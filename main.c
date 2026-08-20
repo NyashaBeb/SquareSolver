@@ -18,15 +18,15 @@ int main()
 
     while (fgets(equation, MAXLINE, xin) != NULL)
     { /*Loop Start*/
-    int test = sscanf(equation, "%lf %lf %lf", &a, &b, &c);
-    scanftest(test);
+        int test = sscanf(equation, "%lf %lf %lf", &a, &b, &c);
+        scanftest(test);
     /*Choose*/
-    int F = 0;
-    root x1 = { 0 }, x2 = { 0 };
+        int F = 0;
+        root x1 = { 0 }, x2 = { 0 };
 
-    F = ChooseSolve(a, b, c, F, &x1, &x2);
+        F = ChooseSolve(a, b, c, F, &x1, &x2);
     /*Printing*/
-    PrintSolve(xout, F, &x1, &x2);
+        PrintSolve(xout, F, &x1, &x2);
     } /*Loop end*/
 /*End Program*/
     fclose(xin);
