@@ -22,7 +22,7 @@ int main()
     scanftest(test);
     /*Choose*/
     int F = 0;
-    root x1 = {0}, x2 = {0};
+    root x1 = { 0 }, x2 = { 0 };
 
     F = ChooseSolve(a, b, c, F, &x1, &x2);
     /*Printing*/
@@ -37,7 +37,7 @@ int main()
 
 void scanftest(int scanval)
 {
-    if (scanval == EOF){
+    if (scanval == EOF) {
         printf("End Of File\n");
         exit(EXIT_FAILURE);
     }

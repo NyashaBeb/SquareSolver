@@ -22,6 +22,7 @@ int BinomialSolve(double a, double b, double c, root* x1, root* x2)
 {
     assert (x1 != NULL);
     assert (x2 != NULL);
+    assert (x1 != x2);
 
     if (a == 0) {
         printf("No Binomial");
@@ -51,6 +52,7 @@ int BinomialSolve(double a, double b, double c, root* x1, root* x2)
 int LinearSolve(double a, double b, root* x)
 {
     assert (x != NULL);
+
     if (a == 0) {
         return (b == 0)? INFSOL : NOSOL;
     }
@@ -65,6 +67,7 @@ void PrintSolve(FILE* stream, int F, root* x1, root* x2)
     assert (stream != NULL);
     assert (x1 != NULL);
     assert (x2 != NULL);
+    assert (x1 != x2);
 
     switch (F) {
         case INFSOL:
@@ -90,10 +93,12 @@ int ChooseSolve(double a, double b, double c, int F, root* x1, root* x2)
 {
     assert (x1 != NULL);
     assert (x2 != NULL);
+    assert (x1 != x2);
+
     if (a == 0) {
         F = LinearSolve(b, c, x1);
     }
-    else if (c == 0){
+    else if (c == 0) {
         LinearSolve(a, b, x1);
         x2->RE = 0;
         F = TWOSOL;
