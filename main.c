@@ -11,13 +11,13 @@ enum flags{
 
 /*Using Functions*/
 int BinomialSolver(double a, double b, double c, double* x1, double* x2);
-int LinearSolver(double b, double c, double* x);
+int LinearSolver(double a, double b, double* x);
 
 int main()
 {
 /*Program Start*/
     printf("SquareSolver2008\n2026 (c) Nyasha\n");
-    printf("Insert a b c:\n");
+    printf("Insert a b c: (-100000/100000)\n");
 /*Input*/
     double a = 0, b = 0, c = 0;
     int test = scanf("%lf %lf %lf", &a, &b, &c);
@@ -64,23 +64,23 @@ int BinomialSolver (double a, double b, double c, double* x1, double* x2)
     double disk = b * b - 4 * a * c;
 
     if (disk < 0) {
-        return 0;
+        return NOSOL;
     }
     else if (disk == 0) {
         *x1 = -b / (2 * a);
-        return 1;
+        return ONESOL;
     }
     else {
         *x1 = (-b + sqrt(disk)) / (2 * a);
         *x2 = (-b - sqrt(disk)) / (2 * a);
-        return 2;
+        return TWOSOL;
     }
 }
 /*Solves Linears Arg: a, b Solve: x*/
 int LinearSolver(double a, double b, double* x)
 {
     assert (x != NULL);
-    if (a != 0) {
+    if (a == 0) {
         return (b == 0)? INFSOL : NOSOL;
     }
     else {
