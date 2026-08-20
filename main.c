@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <assert.h>
 
 enum flags{
     INFSOL = 999999,
@@ -72,10 +73,10 @@ int BinomialSolver (double a, double b, double c, double* x1, double* x2)
 int LinearSolver(double a, double b, double* x)
 {
     if (a == 0) {
-        return (b == 0)? INFSOL : 0;
+        return (b == 0)? INFSOL : NOSOL;
     }
     else {
         *x = -b / a;
-        return 1;
+        return ONESOL;
     }
 }
