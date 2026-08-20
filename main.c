@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <math.h>
-#include <assert.h>
 
 #define NOLL -9999999
 #define INFAN -9999998
@@ -10,7 +9,7 @@ int LinearSolver(double, double, double*);
 
 int main()
 {
-    printf("SquareSolver2008\t 2026 (c) Nyasha\n");
+    printf("SquareSolver2008\n2026 (c) Nyasha\n");
     printf("Insert a b c:\n");
 
     double a = 0, b = 0, c = 0;
