@@ -8,35 +8,30 @@ int main()
 {
 /*Program Start*/
     printf("SquareSolver2008\n2026 (c) Nyasha\n");
-/*  printf("Insert a b c: (-100000/100000)\n");*/
+ /*  printf("Insert a b c: (-100000/100000)\n"); */
 /*File Open*/
     FILE* xin = fopen("INPUT", "r");
     FILE* xout = fopen("OUTPUT", "w");
 /*Input*/
     double a = 0, b = 0, c = 0;
-    char equality[MAXLINE] = { 0 };
+    char equation[MAXLINE] = { 0 };
 
-    while (fgets(equality, MAXLINE, xin) != NULL)
+    while (fgets(equation, MAXLINE, xin) != NULL)
     { /*Loop Start*/
-    int test = sscanf(equality, "%lf %lf %lf", &a, &b, &c);
+    int test = sscanf(equation, "%lf %lf %lf", &a, &b, &c);
     scanftest(test);
     /*Choose*/
-    int Flag = 0;
-    solve x1 = {0}, x2 = {0};
+    int F = 0;
+    root x1 = {0}, x2 = {0};
 
-    if (a == 0) {
-        Flag = LinearSolver(b, c, &x1);
-    }
-    else {
-        Flag = BinomialSolver(a, b, c, &x1, &x2);
-    }
+    ChooseSolve(a, b, c, F, &x1, &x2);
     /*Printing*/
-    PrintSolver(xout, Flag, &x1, &x2);
+    PrintSolve(xout, F, &x1, &x2);
     } /*Loop end*/
 /*End Program*/
     fclose(xin);
     fclose (xout);
-    printf("Files were edited succesfully\n");
+    printf("Files were edited succesfully\n");d
     return 0;
 }
 
