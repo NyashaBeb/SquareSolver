@@ -25,7 +25,7 @@ int main()
         printf("End Of File\n");
         return 0;
     }
-    else if (test < 3) {
+    else if (test != 3) {
         printf("Argument count error\n");
         return 0;
     }
@@ -79,7 +79,7 @@ int BinomialSolver (double a, double b, double c, double* x1, double* x2)
 /*Solves Linears Arg: a, b Solve: x*/
 int LinearSolver(double a, double b, double* x)
 {
-    assert (x == NULL);
+    assert (x != NULL);
     if (a != 0) {
         return (b == 0)? INFSOL : NOSOL;
     }
