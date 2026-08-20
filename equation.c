@@ -3,8 +3,6 @@
 #include <assert.h>
 #include <stdlib.h>
 
-const int MAXLINE = 10000;
-
 enum flags {
     INFSOL = 999999,
     NOSOL = 999990,
@@ -12,60 +10,6 @@ enum flags {
     TWOSOL = 999992
 };
 
-/*Using Functions*/
-int BinomialSolver(double a, double b, double c, double* x1, double* x2);
-int LinearSolver(double a, double b, double* x);
-void PrintSolver(FILE* stream, int Flag, double x1, double x2);
-
-int main()
-{
-/*Program Start*/
-
-    printf("SquareSolver2008\n2026 (c) Nyasha\n");
-/*  printf("Insert a b c: (-100000/100000)\n");*/
-/*File Open*/
-    FILE* xin = fopen("INPUT", "r");
-    FILE* xout = fopen("OUTPUT", "w");
-/*Input*/
-    double a = 0, b = 0, c = 0;
-    char equality[MAXLINE] = { 0 };
-
-    while (fgets(equality, MAXLINE, xin) != NULL)
-    { /*Loop Start*/
-    int test = sscanf(equality, "%lf %lf %lf", &a, &b, &c);
-
-    if (test == EOF){
-        printf("End Of File\n");
-        exit(EXIT_FAILURE);
-    }
-    else if (test == 0) {
-        printf("Argument failure\n");
-        exit(EXIT_FAILURE);
-    }
-    else if (test != 3) {
-        printf("Argument count error\n");
-        exit(EXIT_FAILURE);
-    }
-    /*Choose*/
-    int Flag = 0;
-    double x1 = 0, x2 = 0;
-
-    if (a == 0) {
-        Flag = LinearSolver(b, c, &x1);
-    }
-    else {
-        Flag = BinomialSolver(a, b, c, &x1, &x2);
-    }
-    /*Printing*/
-    PrintSolver(xout, Flag, x1, x2);
-    } /*Loop end*/
-/*End Program*/
-    fclose(xin);
-    fclose (xout);
-    printf("Files were edited succesfully\n");
-    return 0;
-}
-/*Solves Binomials Arg: a, b, c Solves: x1, x2*/
 int BinomialSolver (double a, double b, double c, double* x1, double* x2)
 {
     assert (x1 != NULL);
