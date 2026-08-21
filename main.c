@@ -2,7 +2,7 @@
 #include "colorprint.c"
 
 /*Using Functions*/
-void scanftest(int scanval);
+void ScanfTest(int scanval);
 int ManPut(void);
 int FilePut(void);
 
@@ -17,16 +17,29 @@ int main()
         exit(EXIT_FAILURE);
     }
 /*Terminal argument work*/
+    if (fgetc(stdin) != '\n') {
+       ColorPrint(stdout, "%rtToo many arguments%rt\n");
+       exit(EXIT_FAILURE);
+    }
     if (x == 'm') {
         ManPut();
     }
-    else {
+    else if (x == 'f'){
         FilePut();
+    }
+    else {
+        ColorPrint(stdout, "%rtWrong input%rt\n");
     }
     return 0;
 }
-/*Check scanf result*/
-void scanftest(int scanval)
+
+/*!
+    \brief Check scanf output
+    \param scanval [in] scanf output value
+    \return Stop program if something goes wrong
+*/
+
+void ScanfTest(int scanval)
 {
     if (scanval == EOF) {
         ColorPrint(stdout, "%rtEnd Of File%rt\n");
@@ -41,7 +54,13 @@ void scanftest(int scanval)
         exit(EXIT_FAILURE);
     }
 }
-/*Manual input/output style*/
+
+/*!
+    \brief Handle user's input from stdin to solve equation
+    \return Output equation roots to stdout
+    \note Asks parameters later
+*/
+
 int ManPut(void)
 {
     ColorPrint(stdout, "Type: %bc, %bc, %bc (a * x^2 + b * x + c = 0)\n", 'a', 'b', 'c');
@@ -49,7 +68,7 @@ int ManPut(void)
     double a = 0, b = 0, c = 0;
 
     int test = scanf("%lf %lf %lf", &a, &b, &c);
-    scanftest(test);
+    ScanfTest(test);
 /*Choose*/
     int F = 0;
     root x1 = { 0 }, x2 = { 0 };
@@ -60,7 +79,13 @@ int ManPut(void)
     ColorPrint(stdout, "%gtSuccess%wt\n");
     return 0;
 }
-/*Files input/output style*/
+
+/*!
+    \brief Handle user's input from file to solve equation
+    \return Output equation roots to file
+    \note Asks parameters later
+*/
+
 int FilePut(void)
 {
 /*File input*/
@@ -90,7 +115,7 @@ int FilePut(void)
     while (fgets(equation, MAXLINE, xin) != NULL)
     { /*Loop Start*/
         int test = sscanf(equation, "%lf %lf %lf", &a, &b, &c);
-        scanftest(test);
+        ScanfTest(test);
     /*Choose*/
         int F = 0;
         root x1 = { 0 }, x2 = { 0 };

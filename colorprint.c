@@ -16,6 +16,28 @@ int ChooseColor(char* col, const char* p);
 int DoColor(FILE* stream, char* col, const char* p, va_list* argn);
 int ColorPrint(FILE* stream, const char* fmt, ...);
 
+/*!
+    \brief Do fprintf with color identifiers
+    \param stream [in] stream directory
+    \param fmt [out] output format
+    \return cnt count of successfully processed arguments
+    \return 0 if something goes wrong
+
+    identifiers past '%':
+        color identifier:
+            -w white color
+            -r red color
+            -g green color
+            -b blue color
+        format identifier:
+            -b double
+            -d int
+            -c char
+            -t other
+
+    Example: "%gb" print green double
+*/
+
 int ColorPrint(FILE* stream, const char* fmt, ...)
 {
     va_list argn;
@@ -51,6 +73,14 @@ int ColorPrint(FILE* stream, const char* fmt, ...)
     return cnt;
 }
 
+/*!
+    \brief Read color identifiers and handle with
+    \param p [in] raw format
+    \param col [out] color
+    \return 1 if something goes wrong
+    \return 0 if all correct
+*/
+
 int ChooseColor(char* col, const char* p)
 {
     switch (*p) {
@@ -72,6 +102,16 @@ int ChooseColor(char* col, const char* p)
     }
     return 0;
 }
+
+/*!
+    \brief Read format identifiers and handle with
+    \param stream [in] stream directory
+    \param p [in] raw format
+    \param col [in] color
+    \param argn [in] ColorPrint arguments
+    \return 1 if something goes wrong
+    \return 0 if all correct
+*/
 
 int DoColor(FILE* stream, char* col, const char* p, va_list* argn)
 {
