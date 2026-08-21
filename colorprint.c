@@ -15,19 +15,7 @@ const char WHITE[] = "\e[0;37m";
 int ChooseColor(char* col, const char* p);
 int DoColor(FILE* stream, char* col, const char* p, va_list* argn);
 int ColorPrint(FILE* stream, const char* fmt, ...);
-/*
-int main()
-{
-    char str[] = "3%gd67\n";
-    if (ColorPrint(stdout, str, 4) > 0) {
-        printf("Success\n");
-    }
-    else {
-        printf("Unsuccess\n");
-    }
-    return 0;
-}
-*/
+
 int ColorPrint(FILE* stream, const char* fmt, ...)
 {
     va_list argn;
@@ -96,6 +84,14 @@ int DoColor(FILE* stream, char* col, const char* p, va_list* argn)
         case 'd':
             fputs(col, stream);
             fprintf (stream, "%d", va_arg(*argn, int));
+            fputs(WHITE, stream);
+            break;
+        case 't':
+            fputs(col, stream);
+            break;
+        case 'c':
+            fputs(col, stream);
+            fprintf (stream, "%c", va_arg(*argn, int));
             fputs(WHITE, stream);
             break;
         default:
