@@ -1,9 +1,11 @@
 #ifndef EQUATION
 #define EQUATION 1
+
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
 #include <stdlib.h>
+#include "colorprint.c"
 
 enum flags {
     INFSOL = 999999,
@@ -77,13 +79,13 @@ void PrintSolve(FILE* stream, int F, root* x1, root* x2)
             fprintf(stream, "NoSolves\n");
             break;
         case ONESOL:
-            fprintf(stream, "x = %lf\n", x1->RE);
+            ColorPrint(stream, "x = %gb\n", x1->RE);
             break;
         case TWOSOL:
-            fprintf(stream, "x1 = %lf\tx2 = %lf\n", x1->RE, x2->RE);
+            ColorPrint(stream, "x1 = %gb\tx2 = %gb\n", x1->RE, x2->RE);
             break;
         case IMSOL:
-            fprintf(stream, "x1 = %lf + %lfi\tx2 = %lf + %lfi\n", x1->RE, x1->IM, x2->RE, x2->IM);
+            ColorPrint(stream, "x1 = %gb + %gbi\tx2 = %gb + %gbi\n", x1->RE, x1->IM, x2->RE, x2->IM);
             break;
     }
     return;

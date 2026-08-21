@@ -1,6 +1,6 @@
 #include "equation.c"
+#include "colorprint.c"
 
-const int MAXLINE = 10000;
 /*Using Functions*/
 void scanftest(int scanval);
 
@@ -8,7 +8,6 @@ int main()
 {
 /*Program Start*/
     printf("SquareSolver2008\n2026 (c) Nyasha\n");
- /*  printf("Insert a b c: (-100000/100000)\n"); */
 /*File Open*/
     FILE* xin = fopen("INPUT", "r");
     FILE* xout = fopen("OUTPUT", "w");
@@ -31,7 +30,7 @@ int main()
 /*End Program*/
     fclose(xin);
     fclose (xout);
-    printf("Files were edited succesfully\n");
+    printf("File was edited successfully\n");
     return 0;
 }
 
