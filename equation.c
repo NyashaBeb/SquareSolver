@@ -5,8 +5,8 @@
 #include <math.h>
 #include <assert.h>
 #include <stdlib.h>
-#include <float.h>
 #include "colorprint.c"
+#include "coolfoo.c"
 
 enum flags {
     INFSOL = 999999,
@@ -40,7 +40,7 @@ int BinomialSolve(double a, double b, double c, root* x1, root* x2)
     assert (x1 != x2);
 
     if (IsNull(a)) {
-        printf("No Binomial");
+        ColorPrint(stdout, "%rtNo Binomial%wt\n");
         exit(EXIT_FAILURE);
     }
 
@@ -89,18 +89,18 @@ int LinearSolve(double a, double b, root* x)
 /*!
     \brief Print equation roots in stream
     \param stream [in] stream directory
-    \param F [in] output format flag
+    \param fmt [in] output format flag
     \param x1, x2 [out] equation roots
 */
 
-void PrintSolve(FILE* stream, int F, root* x1, root* x2)
+void PrintSolve(FILE* stream, int fmt, root* x1, root* x2)
 {
     assert (stream != NULL);
     assert (x1 != NULL);
     assert (x2 != NULL);
     assert (x1 != x2);
 
-    switch (F) {
+    switch (fmt) {
         case INFSOL:
             fprintf(stream, "InfinitySolves\n");
             break;
@@ -123,7 +123,7 @@ void PrintSolve(FILE* stream, int F, root* x1, root* x2)
 /*!
     \brief Identify equation type
     \param a, b, c [in] equation coefficients
-    \param F [out] output format key
+    \param fmt [out] output format key
     \param x1, x2 [out] equation roots
     \return INFSOL if equation has infinity amount of roots
     \return NOSOL if equation has no roots
@@ -132,37 +132,23 @@ void PrintSolve(FILE* stream, int F, root* x1, root* x2)
     \return TWOSOL if 2 real roots
 */
 
-int ChooseSolve(double a, double b, double c, int F, root* x1, root* x2)
+int ChooseSolve(double a, double b, double c, int fmt, root* x1, root* x2)
 {
     assert (x1 != NULL);
     assert (x2 != NULL);
     assert (x1 != x2);
 
     if (IsNull(a)) {
-        F = LinearSolve(b, c, x1);
+        fmt = LinearSolve(b, c, x1);
     }
     else if (IsNull(c)) {
         LinearSolve(a, b, x1);
         x2->RE = 0;
-        F = TWOSOL;
+        fmt = TWOSOL;
     }
     else {
-        F = BinomialSolve(a, b, c, x1, x2);
+        fmt = BinomialSolve(a, b, c, x1, x2);
     }
-    return F;
+    return fmt;
 }
-
-/*!
-    \brief Check double error in equality with zero
-    \param x [in]
-    \return 1 or 0 like comparison ==
-*/
-
-int IsNull (double x) {
-    if (fabs(x) <= DBL_EPSILON) {
-        return 1;
-    }
-    return 0;
-}
-
 #endif

@@ -1,8 +1,7 @@
 #include "equation.c"
 #include "colorprint.c"
-
+#include "coolfoo.c"
 /*Using Functions*/
-void ScanfTest(int scanval);
 int ManPut(void);
 int FilePut(void);
 
@@ -11,48 +10,20 @@ int main()
 /*Program Start*/
     printf("SquareSolver2008\n2026 (c) Nyasha\n");
     ColorPrint(stdout, "%btManual%wt or %btFile%wt input? [m/f]\n");
-    char x = 0;
-    if ((x = fgetc(stdin)) == EOF) {
-        ColorPrint(stdout, "%rtWrong input%rt\n");
-        exit(EXIT_FAILURE);
-    }
+    char x = bgetc();
 /*Terminal argument work*/
-    if (fgetc(stdin) != '\n') {
-       ColorPrint(stdout, "%rtToo many arguments%rt\n");
-       exit(EXIT_FAILURE);
-    }
-    if (x == 'm') {
-        ManPut();
-    }
-    else if (x == 'f'){
-        FilePut();
-    }
-    else {
-        ColorPrint(stdout, "%rtWrong input%rt\n");
+    switch (x) {
+        case 'm':
+            ManPut();
+            break;
+        case 'f':
+            FilePut();
+            break;
+        default:
+            ColorPrint(stdout, "%rtWrong input%wt\n");
+            return 1;
     }
     return 0;
-}
-
-/*!
-    \brief Check scanf output
-    \param scanval [in] scanf output value
-    \return Stop program if something goes wrong
-*/
-
-void ScanfTest(int scanval)
-{
-    if (scanval == EOF) {
-        ColorPrint(stdout, "%rtEnd Of File%rt\n");
-        exit(EXIT_FAILURE);
-    }
-    else if (scanval == 0) {
-        ColorPrint(stdout, "%rtArgument failure%rt\n");
-        exit(EXIT_FAILURE);
-    }
-    else if (scanval != 3) {
-        ColorPrint(stdout, "%rtArgument count error%rt\n");
-        exit(EXIT_FAILURE);
-    }
 }
 
 /*!
@@ -68,13 +39,13 @@ int ManPut(void)
     double a = 0, b = 0, c = 0;
 
     int test = scanf("%lf %lf %lf", &a, &b, &c);
-    ScanfTest(test);
+    ScanfTest(test, 3);
 /*Choose*/
-    int F = 0;
+    int key = 0;
     root x1 = { 0 }, x2 = { 0 };
-    F = ChooseSolve(a, b, c, F, &x1, &x2);
+    key = ChooseSolve(a, b, c, key, &x1, &x2);
 /*Printing*/
-    PrintSolve(stdout, F, &x1, &x2);
+    PrintSolve(stdout, key, &x1, &x2);
 /*End Program*/
     ColorPrint(stdout, "%gtSuccess%wt\n");
     return 0;
@@ -95,7 +66,7 @@ int FilePut(void)
 
     FILE* xin;
     if ((xin = fopen(from, "r")) == NULL) {
-        ColorPrint(stdout, "%rtNo such file in directory%rt\n");
+        ColorPrint(stdout, "%rtNo such file in directory%wt\n");
         exit(EXIT_FAILURE);
     }
 
@@ -105,7 +76,7 @@ int FilePut(void)
 
     FILE* xout;
     if ((xout = fopen(to, "w")) == NULL) {
-        ColorPrint(stdout, "%rtNo such files in directory%rt\n");
+        ColorPrint(stdout, "%rtNo such files in directory%wt\n");
         exit(EXIT_FAILURE);
     }
 /*Input*/
@@ -115,7 +86,7 @@ int FilePut(void)
     while (fgets(equation, MAXLINE, xin) != NULL)
     { /*Loop Start*/
         int test = sscanf(equation, "%lf %lf %lf", &a, &b, &c);
-        ScanfTest(test);
+        ScanfTest(test, 3);
     /*Choose*/
         int F = 0;
         root x1 = { 0 }, x2 = { 0 };
@@ -124,7 +95,6 @@ int FilePut(void)
     /*Printing*/
         PrintSolve(xout, F, &x1, &x2);
     } /*Loop end*/
-/*End Program*/
     fclose(xin);
     fclose (xout);
     ColorPrint(stdout, "%gtFile was edited successfully%wt\n");

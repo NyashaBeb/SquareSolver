@@ -16,6 +16,8 @@ int ChooseColor(char* col, const char* p);
 int DoColor(FILE* stream, char* col, const char* p, va_list* argn);
 int ColorPrint(FILE* stream, const char* fmt, ...);
 
+/*#define OutColorPrint(fmt) Colorprint(stdout, (fmt), ...)*/
+
 /*!
     \brief Do fprintf with color identifiers
     \param stream [in] stream directory
